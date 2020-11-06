@@ -1,5 +1,5 @@
 # Games Engines 1 Assignment
-This is a repository for my Game Engines 2020 - 2021 assignment 
+This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Nieckarz, C17389181, DT282/4.
 ## Project Idea
 
 My project is called **Disco Road**. The goal of this project is to create an audio visualizer experience in Unity that will allow the user to walk or move along a never ending road surrounded by moving music bars and other visual effects. This program will procedurally generate both a path for the player to walk on as well as other visual elements based on data from an audio track. 
