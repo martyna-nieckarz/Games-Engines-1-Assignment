@@ -33,7 +33,7 @@ Next step will be implementing the never ending path the player will be moving a
 * Ability to toggle between different stlyles/color schemes of visualisation.
 * Sky full of starts in the background
 
-## PROPOSAL STAGE
+## PROJECT DEVELOPMENT STAGE
 
 ### What was achieved
 
