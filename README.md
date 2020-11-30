@@ -1,6 +1,17 @@
 # Games Engines 1 Assignment
 This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Nieckarz, C17389181, DT282/4.
 
+## PROJECT DEVELOPMENT STAGE
+(scroll down for the proposal stage)
+
+### What was achieved
+
+Week 11:
+
+Week 12: 
+
+Week 13:
+
 ## PROPOSAL STAGE
 
 ### Project Idea
@@ -32,14 +43,4 @@ Next step will be implementing the never ending path the player will be moving a
 * 3rd person view of a cute cat
 * Ability to toggle between different stlyles/color schemes of visualisation.
 * Sky full of starts in the background
-
-## PROJECT DEVELOPMENT STAGE
-
-### What was achieved
-
-Week 11:
-
-Week 12: 
-
-Week 13:
 
