@@ -14,7 +14,7 @@ Click here to watch a video of the code running.
 
 ## PROJECT DEVELOPMENT STAGE
 
-Unfortunately the project didn't come out exactly as intended due to lack of time. The final year project ended up taking up a lot more than than expected.
+Unfortunately the project didn't come out exactly as intended due to lack of time. The final year project ended up taking up a lot more time than than expected this semester.
 
 Here are the development stages:
 
