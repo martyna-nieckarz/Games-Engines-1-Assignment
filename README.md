@@ -4,6 +4,12 @@ This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Niec
 ## FINAL OUTCOME
 (scroll down for the proposal and development stages)
 
+Here is an image of the final project outcome:
+
+
+#### Youtube Link
+Click here to watch a video of the code running
+
 
 
 ## PROJECT DEVELOPMENT STAGE
