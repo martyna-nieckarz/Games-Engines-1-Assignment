@@ -7,18 +7,28 @@ This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Niec
 Here is an image of the final project outcome:
 
 
-#### Youtube Link
-Click here to watch a video of the code running
 
+#### Youtube Link
+Click here to watch a video of the code running.
 
 
 ## PROJECT DEVELOPMENT STAGE
 
+Unfortunately the project didn't come out exactly as intended due to lack of time. The final year project ended up taking up a lot more than than expected.
+
+Here are the development stages:
+
 ### Step 1:
+
+
 
 ### Step 2:
 
+
+
 ### Step 3:
+
+
 
 
 ## PROPOSAL STAGE
