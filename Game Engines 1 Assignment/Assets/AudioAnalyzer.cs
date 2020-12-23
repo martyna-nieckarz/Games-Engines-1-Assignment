@@ -1,109 +1,230 @@
-﻿using System.Collections;
+﻿using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
+using FMODUnity;
+using FMOD;
+using FMOD.Studio;
+using System.Runtime.InteropServices;
 
-[RequireComponent(typeof(AudioSource))]
-public class AudioAnalyzer : MonoBehaviour {
+public class FMODAudioVisualizer : MonoBehaviour
+{
+    [Header("Game Performance")]
+    [SerializeField] private int fps = 0;
+    [Header("FMOD Event")]
+    [EventRef] [SerializeField] private string eventPath = null;
+    [SerializeField] private bool playOnAwake = true;
+    [Header("Audio Sample Data Settings")]
+    [SerializeField] private int windowSize = 512;
+    [SerializeField] private DSP_FFT_WINDOW windowShape = DSP_FFT_WINDOW.RECT;
+    [Header("Select Metering Object Prefab")]
+    [SerializeField] private GameObject MeterObject = null;
+    [SerializeField] private float meterIntensity = 10f;
+    [SerializeField] private float SpaceBetweenMeters = 0.5f;
+    [Header("Meter Speed Settings")]
+    [SerializeField] private float bufferStartSpeed = 0.005f;
+    [SerializeField] private float bufferAccelRate = 1.2f;
+    [Header("Testing")]
+    private List<float> freqRanges = new List<float>();
+    private int numSampleInFirstBand = 1;
 
-    public bool useMic = false;
-    public AudioClip clip;
-    AudioSource a;
-    public AudioMixerGroup amgMic;
-    public AudioMixerGroup amgMaster;
+    private EventInstance _event;
+    private ChannelGroup channelGroup;
+    private DSP DSPFFT;
+    private DSP_PARAMETER_FFT fftparam;
 
-    public string selectedDevice;
+    private GameObject[] bandMeters;
 
-    public static int frameSize = 512;
-    public static float[] spectrum;
-    public static float[] wave;
+    private float[] _samples;
+    public static float[] freqBands = new float[7];
+    public static float[] bandBuffer = new float[7];
+    private float[] bufferDecrease = new float[7];
+
+    private float time = 0f;
+    private int frameCount = 0;
     
-    public static float[] bands;
-
-    public static float amplitude = 0;
-    public static float smoothedAmplitude = 0;
-
-    public float binWidth;
-    public float sampleRate;
-
-
     
-    /*
-     * 20-60 - Subbase
-     * 60-250 - Bass
-     * 250-500 - Low midrange
-     * 500 - 2Khz - Midrange
-     * 2Khz - 4Khz - Upper midrange
-     * 4Khz - 6Khz - Presence
-     * 6Khz - 20Khz - Brilliance
-     */
-
-    private void Awake()
+    // Start is called before the first frame update
+    private void Start()
     {
-        a = GetComponent<AudioSource>();
-        spectrum = new float[frameSize];
-        wave = new float[frameSize];
-        bands = new float[(int) Mathf.Log(frameSize, 2)];
+        //Prepare FMOD event
+        PrepareFMODeventInstance();
         
-        if (useMic)
-        {
-            if (Microphone.devices.Length > 0)
-            {
-                selectedDevice = Microphone.devices[0].ToString();
-                a.clip = Microphone.Start(selectedDevice, true, 1, AudioSettings.outputSampleRate);
-                a.loop = true;
-                a.outputAudioMixerGroup = amgMic;
-            }
-        }
-        else
-        {
-            a.clip = clip;
-            a.outputAudioMixerGroup = amgMaster;
-        }
-        a.Play();
+        //find out how many meters are needed
+        SetNumberOfMeters();
+
+        //spawn meters.
+        SpawnMeterObjects();
+
+        _samples = new float[windowSize];
+        freqBands = new float[freqRanges.Count];
+        bandBuffer = new float[freqRanges.Count];
+        bufferDecrease = new float[freqRanges.Count];
     }
 
-    // Use this for initialization
-    void Start () {        
-        sampleRate = AudioSettings.outputSampleRate;
-        binWidth = AudioSettings.outputSampleRate / 2 / frameSize;
-    }
-    
-    void GetFrequencyBands()
-    {        
-        for (int i = 0; i < bands.Length; i++)
-        {
-            int start = (int)Mathf.Pow(2, i) - 1;
-            int width = (int)Mathf.Pow(2, i);
-            int end = start + width;
-            float average = 0;
-            for (int j = start; j < end; j++)
-            {
-                average += spectrum[j] * (j + 1);
-            }
-            average /= (float) width;
-            bands[i] = average;
-        }
-
-    }
-
-    public void GetAmplitude()
+    private void PrepareFMODeventInstance()
     {
-        float total = 0;
-        for(int i = 0 ; i < wave.Length ; i ++)
-            {
-        total += Mathf.Abs(wave[i]);
+        _event = RuntimeManager.CreateInstance(eventPath);
+        _event.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject.transform));
+        if (playOnAwake)
+            _event.start();
+
+        RuntimeManager.CoreSystem.createDSPByType(DSP_TYPE.FFT, out DSPFFT);
+        DSPFFT.setParameterInt((int)DSP_FFT.WINDOWTYPE, (int)windowShape);
+        DSPFFT.setParameterInt((int)DSP_FFT.WINDOWSIZE, windowSize * 2);
+
+        _event.getChannelGroup(out channelGroup);
+        channelGroup.addDSP(0, DSPFFT);
+    }
+
+    private void SetNumberOfMeters()
+    {
+        float singleSizeOfOneSample = 22050f / windowSize;
+        float HzForFirstBand = singleSizeOfOneSample;
+
+        while (HzForFirstBand < 60f)
+        {
+            numSampleInFirstBand++;
+            HzForFirstBand += singleSizeOfOneSample;
         }
-        amplitude = total / wave.Length;
-        smoothedAmplitude = Mathf.Lerp(smoothedAmplitude, amplitude, Time.deltaTime * 3);
-  }
+
+        freqRanges.Clear();
+        freqRanges.Add(HzForFirstBand);
+        float hzRange = HzForFirstBand;
+        float hzSize = HzForFirstBand;
+        while (hzRange < 22050f)
+        {
+            hzSize *= 2;
+            hzRange += hzSize;
+            if (hzRange < 22050f)
+                freqRanges.Add(hzRange);
+        }
+    }
     
+    private void SpawnMeterObjects()
+    {
+        int posOffSet = 0;
+        float spaceOffset = 0;
+        bandMeters = new GameObject[freqRanges.Count];
+        for (int i = 0; i < freqRanges.Count; i++)
+        {
+            bandMeters[i] = Instantiate(MeterObject, transform.position, transform.rotation);
+            bandMeters[i].transform.position = new Vector3(transform.position.x + posOffSet + spaceOffset, transform.position.y, transform.position.z);
+
+            if (bandMeters[i].GetComponent<ParamCube>() != null)
+            {
+                bandMeters[i].GetComponent<ParamCube>()._band = posOffSet;
+            }
+            posOffSet++;
+            spaceOffset += SpaceBetweenMeters;
+        }
+    }
+
+    private void Update()
+    {
+        GetSpectrumData();
+        FrequencyBands();
+        BandBuffer();
+        countFPS();
+    }
+
+    private void GetSpectrumData()
+    {
+        System.IntPtr data;
+        uint length;
+
+        DSPFFT.getParameterData(2, out data, out length);
+        fftparam = (DSP_PARAMETER_FFT)Marshal.PtrToStructure(data, typeof(DSP_PARAMETER_FFT));
+
+        if (fftparam.numchannels == 0)
+        {
+            _event.getChannelGroup(out channelGroup);
+            channelGroup.addDSP(0, DSPFFT);
+            //Debug.Log("wait I'm not ready yet!");
+        }
+        else if (fftparam.numchannels >= 1)
+        {
+            for (int b = 0; b < windowSize; b++)
+            {
+                float totalChannelData = 0f;
+                for (int c = 0; c < fftparam.numchannels; c++)
+                    totalChannelData += fftparam.spectrum[c][b];
+                _samples[b] = totalChannelData / fftparam.numchannels;
+            }
+            //Debug.Log("working with: " + fftparam.numchannels + " channels here baby!");
+        }
+    }
+
+    private void FrequencyBands()
+    {
+        int counter = 0;
+        for (int i = 0; i < freqRanges.Count; i++)
+        {
+            float average = 0f;
+            int numSampleInThisBand = numSampleInFirstBand * (int)Mathf.Pow(2, i);
+
+            for (int j = 0; j < numSampleInThisBand; j++)
+            {
+                average += _samples[counter] * (counter + 1);
+                counter++;
+            }
+            average /= counter;
+            freqBands[i] = average * meterIntensity;
+        }
+    }
     
-    // Update is called once per frame
-    void Update () {
-        a.GetSpectrumData(spectrum, 0, FFTWindow.Blackman);
-        a.GetOutputData(wave, 0);
-        GetAmplitude();
-        GetFrequencyBands();
+    private void BandBuffer()
+    {
+        for (int i = 0; i < freqRanges.Count; i++)
+        {
+            if(freqBands[i] > bandBuffer[i])
+            {
+                bandBuffer[i] = freqBands[i];
+                bufferDecrease[i] = bufferStartSpeed;
+            }
+
+            if(freqBands[i] < bandBuffer[i])
+            {
+                bandBuffer[i] -= bufferDecrease[i];
+                bufferDecrease[i] *= bufferAccelRate;
+            }
+
+            if (bandBuffer[i] < 0)
+                bandBuffer[i] = 0f;
+        }
+    }
+
+    private void countFPS()
+    {
+        time += Time.deltaTime;
+        if (time > 1f)
+        {
+            time = 0f;
+            fps = 0;
+            fps += frameCount;
+            frameCount = 0;
+        }
+        frameCount++;
+    }
+
+    public void PlayFMODEvent()
+    {
+        _event.start();
+    }
+
+    public void StopFMODEvent()
+    {
+        _event.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    public void PauseFMODEvent()
+    {
+        bool p = false;
+        _event.getPaused(out p);
+        p = !p;
+        _event.setPaused(p);
+    }
+
+    private void OnDestroy()
+    {
+        _event.release();
     }
 }
