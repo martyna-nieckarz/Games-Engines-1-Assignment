@@ -11,6 +11,7 @@ public class GenerateRoadBars : MonoBehaviour
     public float spaceBetweenBarSections = 5.0f;
     public GameObject audioBar;
     // Start is called before the first frame update
+    public List<GameObject> barPieces = new List<GameObject>();
     void Start()
     {
         int[] sides = {-1, 1};
@@ -31,6 +32,8 @@ public class GenerateRoadBars : MonoBehaviour
 
                     float barScaleZ = bar.transform.localScale.z;
                     
+                    barPieces.Add(bar);
+
                     z = z + spaceBetweenBlock + barScaleZ;
                 }
                 x = x + spaceBetweenBarSections * side;
@@ -41,6 +44,11 @@ public class GenerateRoadBars : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        float speed = 30.0f;
+        for (int i = 0; i < barPieces.Count; i++) {
+            GameObject bar = barPieces[i];
+            Vector3 barPos = bar.transform.position;
+            bar.transform.position = new Vector3(barPos.x, barPos.y, barPos.z - Time.deltaTime * speed);
+        }
     }
 }
