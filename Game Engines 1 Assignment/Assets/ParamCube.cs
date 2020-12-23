@@ -19,7 +19,7 @@ public class ParamCube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float resizeAmount = FMODAudioVisualizer.bandBuffer[_band] * _scaleMultipler;
+        float resizeAmount = AudioVisualizer.bandBuffer[_band] * _scaleMultipler;
 
         transform.position = new Vector3(transform.position.x, startPos, transform.position.z);
         transform.localScale = new Vector3(transform.localScale.x, resizeAmount + _startScale, transform.localScale.z);

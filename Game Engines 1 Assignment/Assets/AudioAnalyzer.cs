@@ -5,7 +5,7 @@ using FMOD;
 using FMOD.Studio;
 using System.Runtime.InteropServices;
 
-public class FMODAudioVisualizer : MonoBehaviour
+public class AudioVisualizer : MonoBehaviour
 {
     [Header("Game Performance")]
     [SerializeField] private int fps = 0;
