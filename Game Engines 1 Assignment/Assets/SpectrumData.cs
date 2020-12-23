@@ -7,8 +7,7 @@ using System.Runtime.InteropServices;
 
 public class AudioVisualizer : MonoBehaviour
 {
-    [Header("Game Performance")]
-    [SerializeField] private int fps = 0;
+    [Header("Game Performance")]    [SerializeField] private int fps = 0;
     [Header("FMOD Event")]
     [EventRef] [SerializeField] private string eventPath = null;
     [SerializeField] private bool playOnAwake = true;
