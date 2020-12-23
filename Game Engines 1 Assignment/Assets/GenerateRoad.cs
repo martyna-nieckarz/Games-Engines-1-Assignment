@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeMove : MonoBehaviour
+public class GenerateRoad : MonoBehaviour
 {
-
+    public int roadWidth = 10;
+    public float spaceBetweenBlock = 1;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    void CreateVisualisers()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }
