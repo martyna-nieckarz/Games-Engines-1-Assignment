@@ -16,8 +16,8 @@ public class GenerateRoadBars : MonoBehaviour
     private float lastBarZ;
     // Start is called before the first frame update
     public List<List<GameObject>> barStrips = new List<List<GameObject>>();
-    void Start()
-    {
+
+    void Awake() {
         int[] sides = {-1, 1};
 
         for (int i = 0; i < barSectionNum; i++) {
@@ -39,6 +39,15 @@ public class GenerateRoadBars : MonoBehaviour
                 spawnBarRow(side, 0, z, barScaleZ);
             }
         }
+
+        for (int i = 0; i < barStrips.Count; i++) {
+            print("Strip Bar Count (" + i + ") : " + barStrips[i].Count);
+        }
+    }
+
+    void Start()
+    {
+
     }
 
     void spawnBarRow(int side, float y, float z, float barScaleZ) {
@@ -59,7 +68,7 @@ public class GenerateRoadBars : MonoBehaviour
             if (side == -1) {
                 barStrips[sectionNum].Add(bar);
             } else {
-                barStrips[sectionNum + sectionNum].Add(bar);
+                barStrips[barSectionNum/2 + sectionNum].Add(bar);
             }
 
             x = x + spaceBetweenBarSections * side;
@@ -72,25 +81,28 @@ public class GenerateRoadBars : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float speed = 20.0f;
-        for (int stripNum = barStrips.Count -1; stripNum > 0; stripNum--) {
-            for (int i = barStrips[stripNum].Count -1; i > 0; i--) {
-                GameObject bar = barStrips[stripNum][i];
+        float speed = 10.0f;
+        for (int stripNum = 0; stripNum < barStrips.Count; stripNum++) {
+            List<GameObject> strip = barStrips[stripNum];
+            for (int i = strip.Count -1; i > -1; i--) {
+                GameObject bar = strip[i];
                 Vector3 barPos = bar.transform.position;
                 bar.transform.position = new Vector3(barPos.x, barPos.y, barPos.z - Time.deltaTime * speed);
 
-                if (bar.transform.position.z <  -10) {
+                if (bar.transform.position.z < -10) {
                     Destroy(bar);
-                    barStrips[stripNum].RemoveAt(i);
+                    strip.RemoveAt(i);
                 }
             }
         }
         float maxGap = audioBar.transform.localScale.z + spaceBetweenBlock;
 
-        // print("LBZ: " + lastBarZ);
+        print("LBZ: " + lastBarZ);
 
-        float lastMovingBarPieceZ = barStrips[0][barStrips[0].Count - 1].transform.position.z;
-        // print("BAR PICE: " + lastMovingBarPieceZ);
+        List<GameObject> firstStrip = barStrips[0];
+
+        float lastMovingBarPieceZ = firstStrip[firstStrip.Count -1].transform.position.z;
+        print("BAR PICE: " + lastMovingBarPieceZ);
 
         if (lastBarZ - lastMovingBarPieceZ > maxGap) {
             int[] sides = {-1, 1};
