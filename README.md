@@ -1,16 +1,35 @@
 # Games Engines 1 Assignment
 This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Nieckarz, C17389181, DT282/4.
 
+## FINAL OUTCOME
+(scroll down for the proposal and development stages)
+
+Here is an image of the final project outcome:
+
+
+
+#### Youtube Link
+Click here to watch a video of the code running.
+
+
 ## PROJECT DEVELOPMENT STAGE
-(scroll down for the proposal stage)
 
-### What was achieved
+Unfortunately the project didn't come out exactly as intended due to lack of time. The final year project ended up taking up a lot more time than than expected this semester.
 
-Week 11:
+Here are the development stages:
 
-Week 12: 
+### Step 1:
 
-Week 13:
+
+
+### Step 2:
+
+
+
+### Step 3:
+
+
+
 
 ## PROPOSAL STAGE
 
