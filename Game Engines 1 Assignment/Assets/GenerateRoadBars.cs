@@ -24,6 +24,11 @@ public class GenerateRoadBars : MonoBehaviour
                     GameObject bar = GameObject.Instantiate<GameObject>(audioBar);
                         bar.transform.position = new Vector3(x, 0, z);
                     
+                    float hue = (i / (float) initalRoadLength * 10) % 1.0f;
+
+                    bar.GetComponent<Renderer>().material.color =
+                        Color.HSVToRGB(hue, 1, 1);
+
                     float barScaleZ = bar.transform.localScale.z;
                     
                     z = z + spaceBetweenBlock + barScaleZ;
