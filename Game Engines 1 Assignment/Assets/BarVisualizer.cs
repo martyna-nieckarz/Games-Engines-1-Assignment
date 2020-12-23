@@ -6,7 +6,6 @@ public class BarVisualizer : MonoBehaviour
 {
     private List<List<GameObject>> barStrips = new List<List<GameObject>>();
 
-    public GameObject generateRoadBars;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,16 +16,17 @@ public class BarVisualizer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float scale = 100.0f;
+        float scale = 50.0f;
         
         for (int stripNum = 0; stripNum < barStrips.Count; stripNum++) {
             List<GameObject> strip = barStrips[stripNum];
             for (int i = strip.Count -1; i > -1; i--) {
                 GameObject bar = strip[i];
-                int pos = (int) (i / strip.Count) * AudioAnalyzer.bands.Length;
+
+                int pos = (int) ((i / 2) % AudioAnalyzer.bands.Length);
 
                 Vector3 ls = bar.transform.localScale;
-                ls.y = Mathf.Lerp(ls.y, 1 + (AudioAnalyzer.bands[pos] * scale), Time.deltaTime * 3.0f);
+                ls.y = Mathf.Lerp(ls.y, 1 + (AudioAnalyzer.bands[pos] * scale), Time.deltaTime * 5.0f);
                 bar.transform.localScale = ls;
             }
         }
