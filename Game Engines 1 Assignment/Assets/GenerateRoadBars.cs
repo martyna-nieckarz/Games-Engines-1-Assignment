@@ -72,5 +72,17 @@ public class GenerateRoadBars : MonoBehaviour
 
         float lastMovingBarPieceZ = barPieces[barPieces.Count - 1].transform.position.z;
         print("BAR PICE: " + lastMovingBarPieceZ);
+
+        if (lastBarZ - lastMovingBarPieceZ > maxGap) {
+            int[] sides = {-1, 1};
+
+            float barScaleZ = audioBar.transform.localScale.z;
+            // Iterate over sides (left & right)
+            for (int sideIndex = 0; sideIndex < sides.Length; sideIndex++) {
+                int side = sides[sideIndex];
+
+                spawnBarRow(side, 0, lastBarZ, barScaleZ);
+            }
+        }
     }
 }
