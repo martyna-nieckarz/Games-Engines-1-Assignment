@@ -6,6 +6,8 @@ This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Niec
 Here is an image of the final project outcome:
 
 
+![Image of Final Audio Visualizer](https://i.imgur.com/Va0N3MV.png)
+
 
 #### Youtube Link
 Click [here](https://youtu.be/P2FZTclrYCc)  to watch a video of the code running.
