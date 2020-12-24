@@ -5,18 +5,16 @@ This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Niec
 
 Here is an image of the final project outcome:
 
-
 ![Image of Final Audio Visualizer](https://i.imgur.com/Va0N3MV.png)
-
 
 #### Youtube Link
 Click [here](https://youtu.be/P2FZTclrYCc)  to watch a video of the code running.
 
 (Link: https://youtu.be/P2FZTclrYCc)
 
-#### Note:
+#### Final thoughts:
 
-Unfortunately the project didn't come out exactly as intended due to lack of time. The final year project ended up taking up a lot more time than than expected this semester. However I'm happy with the end results as the animations look very cool.
+Although the project didn't come out exactly as intended due to lack of time, I'm still very happy with the end results as the animations look very cool. Instead of a cat character as mentioned in the project proposal below, a "shark" ship was implemented to make the player look like they're crusing along a road in space. The song chosen also seems fitting with the overall theme of vizualization. The music bars work very well and are visually appealing.
 
 
 ## PROPOSAL STAGE
@@ -48,6 +46,5 @@ Next step will be implementing the never ending path the player will be moving a
 
 ##### Possible features I'm hoping to implement if I have enough time:
 * 3rd person view of a cute cat
-* Ability to toggle between different stlyles/color schemes of visualisation.
-* Sky full of starts in the background
+* Sky full of stars in the background
 
