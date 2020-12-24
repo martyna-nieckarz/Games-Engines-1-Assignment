@@ -8,7 +8,9 @@ Here is an image of the final project outcome:
 
 
 #### Youtube Link
-Click here to watch a video of the code running.
+Click [here](https://youtu.be/P2FZTclrYCc)  to watch a video of the code running.
+
+(Link: https://youtu.be/P2FZTclrYCc)
 
 #### Note:
 
