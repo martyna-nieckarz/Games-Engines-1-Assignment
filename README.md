@@ -14,7 +14,7 @@ Click [here](https://youtu.be/P2FZTclrYCc)  to watch a video of the code running
 
 #### Final thoughts:
 
-Although the project didn't come out exactly as intended due to lack of time, I'm still very happy with the end results as the animations look very cool. Instead of a cat character as mentioned in the project proposal below, a "shark" ship was implemented to make the player look like they're crusing along a road in space. The song chosen also seems fitting with the overall theme of vizualization. The music bars work very well and are visually appealing.
+Although the project didn't come out exactly as intended due to lack of time and the theme changed throughtout the development, I'm still very happy with the end results as the animations look very cool and work as intended. Instead of a cat character as mentioned in the project proposal below, a "shark" ship was implemented to make the player look like they're crusing along a road in space. The song chosen also seems fitting with the overall theme of vizualization. The music bar audio visualization works very well and is visually appealing. There are also shadows appearing in the scene and a pretty purple sky. Overall, the project was a success.
 
 
 ## PROPOSAL STAGE
