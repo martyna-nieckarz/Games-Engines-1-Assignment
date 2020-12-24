@@ -2,7 +2,6 @@
 This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Nieckarz, C17389181, DT282/4.
 
 ## FINAL OUTCOME
-(scroll down for the proposal stage)
 
 Here is an image of the final project outcome:
 
