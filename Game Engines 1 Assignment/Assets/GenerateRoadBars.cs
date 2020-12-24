@@ -25,8 +25,8 @@ public class GenerateRoadBars : MonoBehaviour
             barStrips.Add(strip);
         }
 
-        // float barScaleZ = 0;
         float barScaleZ = audioBar.transform.localScale.z;
+
         // Iterate over sides (left & right)
         for (int sideIndex = 0; sideIndex < sides.Length; sideIndex++) {
             int side = sides[sideIndex];
@@ -63,7 +63,6 @@ public class GenerateRoadBars : MonoBehaviour
             bar.GetComponent<Renderer>().material.color =
                 Color.HSVToRGB(hue, 1, 1);
 
-            // barPieces.Add(bar);
 
             if (side == -1) {
                 barStrips[sectionNum].Add(bar);
