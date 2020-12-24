@@ -14,7 +14,6 @@ public class GenerateRoadBars : MonoBehaviour
     public GameObject audioBar;
 
     private float lastBarZ;
-    // Start is called before the first frame update
     public List<List<GameObject>> barStrips = new List<List<GameObject>>();
 
     void Awake() {
@@ -45,6 +44,7 @@ public class GenerateRoadBars : MonoBehaviour
         }
     }
 
+    // Start is called before the first frame update
     void Start()
     {
 
@@ -96,12 +96,13 @@ public class GenerateRoadBars : MonoBehaviour
         }
         float maxGap = audioBar.transform.localScale.z + spaceBetweenBlock;
 
-        print("LBZ: " + lastBarZ);
+        // printing used for error checking
+        //print("LBZ: " + lastBarZ);
 
         List<GameObject> firstStrip = barStrips[0];
 
         float lastMovingBarPieceZ = firstStrip[firstStrip.Count -1].transform.position.z;
-        print("BAR PICE: " + lastMovingBarPieceZ);
+        //print("BAR PICE: " + lastMovingBarPieceZ);
 
         if (lastBarZ - lastMovingBarPieceZ > maxGap) {
             int[] sides = {-1, 1};
