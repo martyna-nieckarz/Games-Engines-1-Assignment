@@ -362,15 +362,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0d34bd546d97f1f49b5cbab7ccabd8b9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.845
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 45
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useMic: 0
-  clip: {fileID: 8300000, guid: 96bc4d7b55fb1f44cbd4843c92f76e71, type: 3}
+  clip: {fileID: 8300000, guid: 0d34bd546d97f1f49b5cbab7ccabd8b9, type: 3}
   amgMic: {fileID: 24300002, guid: 582fcac59619562478d4f6c0838f2700, type: 2}
   amgMaster: {fileID: 24300002, guid: 582fcac59619562478d4f6c0838f2700, type: 2}
   selectedDevice: 
@@ -740,3 +740,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a51bf5c438577444bfaf00499912d28, type: 3}
+--- !u!1 &2059389824 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 9a51bf5c438577444bfaf00499912d28,
+    type: 3}
+  m_PrefabInstance: {fileID: 1031972544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2059389826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059389824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 945d3ea5bfc8b7f4d8556ff641e7e60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
