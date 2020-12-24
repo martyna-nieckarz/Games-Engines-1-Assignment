@@ -2,7 +2,6 @@
 This is a repository for my Game Engines 2020 - 2021 assignment. By Martyna Nieckarz, C17389181, DT282/4.
 
 ## FINAL OUTCOME
-(scroll down for the proposal and development stages)
 
 Here is an image of the final project outcome:
 
@@ -11,24 +10,9 @@ Here is an image of the final project outcome:
 #### Youtube Link
 Click here to watch a video of the code running.
 
+#### Note:
 
-## PROJECT DEVELOPMENT STAGE
-
-Unfortunately the project didn't come out exactly as intended due to lack of time. The final year project ended up taking up a lot more time than than expected this semester.
-
-Here are the development stages:
-
-### Step 1:
-
-
-
-### Step 2:
-
-
-
-### Step 3:
-
-
+Unfortunately the project didn't come out exactly as intended due to lack of time. The final year project ended up taking up a lot more time than than expected this semester. However I'm happy with the end results as the animations look very cool.
 
 
 ## PROPOSAL STAGE
